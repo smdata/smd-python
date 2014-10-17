@@ -1,5 +1,5 @@
 def read_json(filename):
-	#smd.read_json(filename): Loads a SMD structure from JSON
+	#smd.read_json(filename): Loads a SMD structure from JSON formated .smd file
 	print('read_jason')
 	import json
 	json_data = open(filename).read()
@@ -7,7 +7,11 @@ def read_json(filename):
 	return smd
 
 def isvalid(dataset):
-	#smd.isvalid(dataset): Checks if supplied struct is a valid SMD instance.	data = 1 
+	#smd.isvalid(dataset): Checks if supplied struct is a valid SMD instance.	
+	#This only looks to see if the correct fields are present it has not been
+	#generalized to ensure that the correct data type is present in each field
+	#The output will indicate which parts of the data structure do not conform
+	#to the expected format 
 	print('isvalid')
 
 	
@@ -102,7 +106,9 @@ def filter(dataset):
 	return dataset
 	
 def merge_data(*arg):
-	#smd.merge(data1, data2, ...): Returns a merged dataset containing all traces in multiple datasets.
+	#smd.merge(data1, data2, ...): Returns a merged dataset containing all traces in 
+	#multiple datasets.
+	#A new top level 'id' is generated that should be unique to this dataset
     import hashlib
     import json
     import cPickle as pickle
@@ -151,6 +157,7 @@ def create(data, types):
     import cPickle as pickle
     import numpy as np
 
+	# generates a hash id based on all the input data
     data_md5 = hashlib.md5(json.dumps(pickle.dumps(data), sort_keys=True)).hexdigest()
     tid = data_md5
 
@@ -174,5 +181,16 @@ def create(data, types):
     return SMD
 
 
-	
-	
+def test_data(ntraces):	
+	#smd.testdata(ntraces): generated ntraces of randomly generated two channel data for 
+	#test cases
+	import random
+	import numpy as np
+	data = []
+	for i in range(0,10):
+		tdata = []
+		for j in range(100):
+			tdata.append(random.gauss(1,5))
+		data.append(np.vstack((tdata,tdata)))
+
+	return data
