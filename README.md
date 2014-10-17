@@ -38,7 +38,7 @@ SMD.write_json('TestSave', data)
 data = SMD.read_json('TestSave.smd')
 ```
 
-```
+```python
 # deep coppy the data sets to be combined
 import copy
 ds1 = copy.deepcopy(data)
